@@ -24,7 +24,13 @@ In order to be able to use our code please make sure that you have the following
 - [mayavi](https://docs.enthought.com/mayavi/mayavi/installation.html#installing-with-pip)
 (Please note that in case you have difficulties installing mayavi via pip,
 [this link](https://vegananddepressed.wordpress.com/2016/06/17/installing-mayavi-for-python-3-5-in-a-virtual-env/)
-might also be usuful)
+might also be useful)
+
+Alternatively, you can also try to simply run the following and hopefully all
+the aforementioned packages will be automatically installed 
+```
+pip install --user -r requirements.txt
+```
 
 Subsequently, you need to build the Cython module that implements the sampling
 on the surface of the superquadrics by simply running
@@ -136,6 +142,19 @@ used for the current experiment.
 Visualizing Superquadrics
 -------------------------
 
+We also provide the `visualize_sq.py` script which allows you to quickly
+visualize superquadrics given a set of parameters as a set of points sampled on
+the surface of the superquadric surface.
+
+You can simply execute it by providing your preferred shape and size parametrization as follows:
+```
+$ ./visualize_sq.py --shape 1.0,1.0 --size 0.25,0.25,0.25
+```
+Below are some example images of various superquadrics using different shape
+and size parameters
+![Example 1](img/00.png)
+![Example 2](img/01.png)
+![Example 3](img/02.png)
 
 
 Contribution
@@ -162,13 +181,17 @@ Below we list some papers that are relevant to the provided code.
 - 3D-PRNN: Generating Shape Primitives with Recurrent Neural Networks [pdf](https://arxiv.org/abs/1708.01648.pdf)
 - Im2Struct: Recovering 3D Shape Structure From a Single RGB Image [pdf](http://openaccess.thecvf.com/content_cvpr_2018/html/Niu_Im2Struct_Recovering_3D_CVPR_2018_paper.pdf)
 
+Below we also list some more papers that are more closely related to superquadrics
+- Equal-Distance Sampling of Supercllipse Models [pdf](https://pdfs.semanticscholar.org/3e6f/f812b392f9eb70915b3c16e7bfbd57df379d.pdf)
+- Revisiting Superquadric Fitting: A Numerically Stable Formulation [link](https://ieeexplore.ieee.org/document/8128485)
+
 
 Citation
 --------
 If you found this work influential or helpful for your research, please consider citing
 
 ```
-@inproceedings{Paschalidou2019CVPR,
+@Inproceedings{Paschalidou2019CVPR,
      title = {Superquadrics Revisited: Learning 3D Shape Parsing beyond Cuboids},
      author = {Paschalidou, Despoina and Ulusoy, Ali Osman and Geiger, Andreas},
      booktitle = {Proceedings IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)},
