@@ -1,0 +1,13 @@
+torch==0.4.1
+progress==1.4
+trimesh==2.38.3
+
+Cython
+Pillow
+pyquaternion
+backports.functools_lru_cache
+
+# Visualization
+matplotlib
+#mayavi
+#PyQt5
