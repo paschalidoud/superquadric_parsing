@@ -14,7 +14,7 @@ from arguments import add_voxelizer_parameters, add_nn_parameters, \
      add_dataset_parameters, add_gaussian_noise_layer_parameters, \
      voxelizer_shape, add_tsdf_fusion_parameters, \
      add_loss_options_parameters, add_loss_parameters
-from utils import get_colors
+from utils import get_colors, store_primitive_parameters
 
 from learnable_primitives.common.dataset import get_dataset_type,\
     compose_transformations
@@ -311,6 +311,8 @@ def main(argv):
             R = quaternions_to_rotation_matrices(
                     y_hat[2].view(-1, 4)
                 ).to("cpu").detach()
+            # get also the raw quaternions
+            quats = y_hat[2].view(-1, 4).to("cpu").detach().numpy()
         translations = y_hat[1].to("cpu").view(args.n_primitives, 3)
         translations = translations.detach().numpy()
 
@@ -350,6 +352,19 @@ def main(argv):
                     taperings[i, 0],
                     taperings[i, 1]
                 )
+            store_primitive_parameters(
+                size=tuple(shapes[i]),
+                shape=tuple(epsilons[i]),
+                rotation=tuple(quats[i]),
+                location=tuple(translations[i]),
+                tapering=tuple(taperings[i]),
+                probability=(probs[0, i],),
+                color=(colors[i % len(colors)]) + (1.0,),
+                filepath=os.path.join(
+                    args.output_directory,
+                    "primitive_%d.p" %(i,)
+                )
+            )
             if probs[0, i] >= args.prob_threshold:
                 on_prims += 1
                 mlab.mesh(

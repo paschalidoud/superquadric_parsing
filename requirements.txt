@@ -9,5 +9,6 @@ backports.functools_lru_cache
 
 # Visualization
 matplotlib
+seaborn
 #mayavi
 #PyQt5

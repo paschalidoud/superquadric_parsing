@@ -1,4 +1,5 @@
 import pandas as pd
+import pickle
 
 import matplotlib
 matplotlib.use("agg")
@@ -35,3 +36,28 @@ def parse_train_test_splits(train_test_splits_file, model_tags):
 
 def get_colors(M):
     return sns.color_palette("Paired")
+
+
+def store_primitive_parameters(
+    size,
+    shape,
+    rotation,
+    location,
+    tapering,
+    probability,
+    color,
+    filepath
+):
+    primitive_params = dict(
+        size=size,
+        shape=shape,
+        rotation=rotation,
+        location=location,
+        tapering=tapering,
+        probability=probability,
+        color=color
+    )
+    pickle.dump(
+        primitive_params,
+        open(filepath, "wb")
+    )
