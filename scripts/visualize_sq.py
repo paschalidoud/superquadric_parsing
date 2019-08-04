@@ -15,17 +15,7 @@ from arguments import add_sq_mesh_sampler_parameters
 
 from learnable_primitives.equal_distance_sampler_sq import \
     EqualDistanceSamplerSQ
-
-
-def fexp(x, p):
-    return np.sign(x)*(np.abs(x)**p)
-
-
-def sq_surface(a1, a2, a3, e1, e2, eta, omega):
-    x = a1 * fexp(np.cos(eta), e1) * fexp(np.cos(omega), e2)
-    y = a2 * fexp(np.cos(eta), e1) * fexp(np.sin(omega), e2)
-    z = a3 * fexp(np.sin(eta), e1)
-    return x, y, z
+from visualization_utils import sq_surface
 
 
 def main(argv):
