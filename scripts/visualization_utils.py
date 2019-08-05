@@ -1,4 +1,8 @@
 import numpy as np
+import pickle
+
+import trimesh
+from pyquaternion import Quaternion
 
 
 def fexp(x, p):
@@ -37,10 +41,10 @@ def points_on_sq_surface(a1, a2, a3, e1, e2, R, t, Kx, Ky, n_samples=100):
     # Get an array of size 3x10000 that contains the points of the SQ
     points = np.stack([x, y, z]).reshape(3, -1)
     points_transformed = R.T.dot(points) + t
-    print "R:", R
-    print "t:", t
-    print "e:", [e1, e2]
-    print "K:", [Kx, Ky]
+    # print "R:", R
+    # print "t:", t
+    # print "e:", [e1, e2]
+    # print "K:", [Kx, Ky]
 
     x_tr = points_transformed[0].reshape(n_samples, n_samples)
     y_tr = points_transformed[1].reshape(n_samples, n_samples)
@@ -87,3 +91,60 @@ def points_on_cuboid(a1, a2, a3, e1, e2, R, t, n_samples=100):
     y_tr = points_transformed[1].reshape(2, 9)
     z_tr = points_transformed[2].reshape(2, 9)
     return x_tr, y_tr, z_tr, points_transformed
+
+
+def _from_primitive_parms_to_mesh(primitive_params):
+    if not isinstance(primitive_params, dict):
+        raise Exception(
+            "Expected dict and got {} as an input"
+            .format(type(primitive_params))
+        )
+    # Extract the parameters of the primitives
+    a1, a2, a3 = primitive_params["size"]
+    e1, e2 = primitive_params["shape"]
+    Kx, Ky = primitive_params["tapering"]
+    t = np.array(primitive_params["location"]).reshape(3, 1)
+    R = Quaternion(primitive_params["rotation"]).rotation_matrix.reshape(3, 3)
+
+    # Sample points on the surface of its mesh
+    _, _, _, V = points_on_sq_surface(a1, a2, a3, e1, e2, R, t, Kx, Ky)
+    assert V.shape[0] == 3
+
+    color = np.array(primitive_params["color"])
+    color = (color*255).astype(np.uint8)
+
+    # Build a mesh object using the vertices loaded before and get its
+    # convex hull
+    m = trimesh.Trimesh(vertices=V.T).convex_hull
+    # Apply color
+    for i in range(len(m.faces)):
+        m.visual.face_colors[i] = color
+
+    return m
+
+
+def save_primitive_as_ply(primitive_params, filepath):
+    m = _from_primitive_parms_to_mesh(primitive_params)
+    # Make sure that the filepath endswith .obj
+    if not filepath.endswith(".ply"):
+        raise Exception(
+            "The filepath should have an .ply suffix, instead we received {}"
+            .format(filepath)
+        )
+    m.export(filepath, file_type="ply")
+
+
+def save_prediction_as_ply(primitive_files, filepath):
+    if not isinstance(primitive_files, list):
+        raise Exception(
+            "Expected list and got {} as an input"
+            .format(type(primitive_files))
+        )
+    m = None
+    for p in primitive_files:
+        # Parse the primitive parameters
+        prim_params = pickle.load(open(p, "r"))
+        _m = _from_primitive_parms_to_mesh(prim_params)
+        m = trimesh.util.concatenate(_m, m)
+
+    m.export(filepath, file_type="ply")

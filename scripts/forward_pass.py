@@ -15,7 +15,8 @@ from arguments import add_voxelizer_parameters, add_nn_parameters, \
      voxelizer_shape, add_tsdf_fusion_parameters, \
      add_loss_options_parameters, add_loss_parameters
 from utils import get_colors, store_primitive_parameters
-from visualization_utils import points_on_sq_surface, points_on_cuboid
+from visualization_utils import points_on_sq_surface, points_on_cuboid, \
+    save_prediction_as_ply
 
 from learnable_primitives.common.dataset import get_dataset_type,\
     compose_transformations
@@ -91,6 +92,11 @@ def main(argv):
         "--use_deformations",
         action="store_true",
         help="Use Superquadrics with deformations as the shape configuration"
+    )
+    parser.add_argument(
+        "--save_prediction_as_mesh",
+        action="store_true",
+        help="When true store prediction as a mesh"
     )
     parser.add_argument(
         "--run_on_gpu",
@@ -227,6 +233,9 @@ def main(argv):
         #        pts[0], pts[1], pts[2],
         #        scale_factor=0.03, color=(0.8, 0.8, 0.8)
         #     )
+
+        # Keep track of the files containing the parameters of each primitive
+        primitive_files = []
         for i in range(args.n_primitives):
             x_tr, y_tr, z_tr, prim_pts =\
                 get_shape_configuration(args.use_cuboids)(
@@ -240,6 +249,8 @@ def main(argv):
                     taperings[i, 0],
                     taperings[i, 1]
                 )
+
+            # Dump the parameters of each primitive as a dictionary
             store_primitive_parameters(
                 size=tuple(shapes[i]),
                 shape=tuple(epsilons[i]),
@@ -262,6 +273,9 @@ def main(argv):
                     color=tuple(colors[i % len(colors)]),
                     opacity=1.0
                 )
+                primitive_files.append(
+                    os.path.join(args.output_directory, "primitive_%d.p" % (i,))
+                )
 
         if args.with_animation:
             cnt = 0
@@ -279,6 +293,16 @@ def main(argv):
 
         print "Using %d primitives out of %d" % (on_prims, args.n_primitives)
         mlab.show()
+
+        if args.save_prediction_as_mesh:
+            print "Saving prediction as mesh...."
+            save_prediction_as_ply(
+                primitive_files,
+                os.path.join(args.output_directory, "primitives.ply")
+            )
+            print "Saved prediction as ply file in {}".format(
+                os.path.join(args.output_directory, "primitives.ply")
+            )
 
 
 if __name__ == "__main__":

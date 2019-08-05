@@ -1,6 +1,6 @@
 torch==0.4.1
 progress==1.4
-trimesh==2.38.3
+trimesh==2.38.42
 
 Cython
 Pillow
