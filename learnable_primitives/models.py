@@ -104,9 +104,9 @@ class NetworkParameters(object):
 
     def _build_modules(self, n_primitives, input_channels):
         modules = {
-            "translations": Translation(n_primitives, input_channels),
-            "rotations": Rotation(n_primitives, input_channels),
-            "sizes": Size(n_primitives, input_channels)
+            "translations": Translation(n_primitives, input_channels, self.make_dense),
+            "rotations": Rotation(n_primitives, input_channels, self.make_dense),
+            "sizes": Size(n_primitives, input_channels, self.make_dense)
         }
         if self.train_with_bernoulli:
             modules["probs"] = Probability(n_primitives, input_channels, self.make_dense)
