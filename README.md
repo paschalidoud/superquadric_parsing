@@ -9,36 +9,36 @@ This repository contains the code that accompanies our CVPR 2019 paper
 Dependencies & Installation
 ----------------------------
 
-In order to be able to use our code please make sure that you have the following packages installed
+Our library has the following dependencies:
 
+- Python 2.7
 - [PyTorch](https://pytorch.org/get-started/locally/)
-- matplotlib
+- torchvision
 - numpy
+- [scikit-learn](https://scikit-learn.org/stable/install.html)
 - [progress](https://pypi.org/project/progress/)
 - [pyquaternion](http://kieranwynn.github.io/pyquaternion/)
 - [trimesh](https://github.com/mikedh/trimesh)
 - Rtree
 - [backports.functools_lru_cache](https://pypi.org/project/backports.functools_lru_cache/)
 - [Cython](https://cython.readthedocs.io/en/latest/src/quickstart/install.html)
+- [sympy](https://pypi.org/project/sympy/)
+- seaborn
+- matplotlib
 - [PIL](https://pillow.readthedocs.io/en/stable/installation.html#basic-installation)
 - [mayavi](https://docs.enthought.com/mayavi/mayavi/installation.html#installing-with-pip)
-(Please note that in case you have difficulties installing mayavi via pip,
-[this link](https://vegananddepressed.wordpress.com/2016/06/17/installing-mayavi-for-python-3-5-in-a-virtual-env/)
-might also be useful)
 
-Alternatively, you can also try to simply run the following and hopefully all
-the aforementioned packages will be automatically installed 
+They should be automatically installed by running
 ```
-pip install --user -r requirements.txt
+pip install --user -e .
 ```
 
-Subsequently, you need to build the Cython module that implements the sampling
-on the surface of the superquadrics by simply running
+Please note that you might need to install `python-qt4` in order to be able to
+use mayavi. You can do that by simply typing
 ```
-python setup.py build_ext --inplace
+sudo apt install python-qt4
 ```
-
-Now you are ready to start playing with the code.
+Now you are ready to start playing with the code!
 
 Evaluation
 ----------
@@ -49,7 +49,7 @@ superquadric surfaces using mayavi.
 
 You can run it by simply typing
 ```
-$ ./forward_pass.py ~/data/03001627/ /tmp/ --model_tag "dac4af24e2facd7d3000ca4b04fcd6ac" --n_primitives 18 --weight_file ../config/chair_T26AK2FES_model_699 --train_with_bernoulli --use_deformations --use_sq --dataset_type shapenet_v2
+$ ./forward_pass.py ../demo/03001627/ /tmp/ --model_tag "dac4af24e2facd7d3000ca4b04fcd6ac" --n_primitives 18 --weight_file ../config/chair_T26AK2FES_model_699 --train_with_bernoulli --use_deformations --use_sq --dataset_type shapenet_v2
 ```
 
 The script requires two mandatory arguments, the path to the directory that

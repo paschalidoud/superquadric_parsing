@@ -1,14 +1,17 @@
 torch==0.4.1
+torchvision==0.1.8
 progress==1.4
 trimesh==2.38.42
 
+numpy
+scikit-learn
 Cython
 Pillow
 pyquaternion
 backports.functools_lru_cache
+sympy
 
 # Visualization
 matplotlib
 seaborn
-#mayavi
-#PyQt5
+mayavi

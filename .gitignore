@@ -15,6 +15,7 @@ supp.pdf
 
 *.so
 build/
+*.egg-info
 
 scripts/learnable_primitives
 misc/learnable_primitives

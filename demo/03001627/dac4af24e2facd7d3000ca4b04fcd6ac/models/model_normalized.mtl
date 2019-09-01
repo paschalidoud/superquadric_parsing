@@ -1,0 +1,57 @@
+# File produced by Open Asset Import Library (http://www.assimp.sf.net)
+# (assimp v3.2.202087883)
+
+newmtl ForegroundColor
+Kd 0 0 0
+Ka 0 0 0
+Ks 0.33 0.33 0.33
+Ke 0 0 0
+d 1
+Ns 20
+illum 2
+
+newmtl FrontColorNoCulling
+Kd 0.882353 0.882353 0.784314
+Ka 0 0 0
+Ks 0.33 0.33 0.33
+Ke 0 0 0
+d 1
+Ns 20
+illum 2
+
+newmtl __Charcoal_noCulling
+Kd 0.137255 0.137255 0.137255
+Ka 0 0 0
+Ks 0.33 0.33 0.33
+Ke 0 0 0
+d 1
+Ns 20
+illum 2
+
+newmtl __GhostWhite_noCulling
+Kd 0.972549 0.972549 1
+Ka 0 0 0
+Ks 0.33 0.33 0.33
+Ke 0 0 0
+d 1
+Ns 20
+illum 2
+
+newmtl __GreenYellow_1noCulling
+Kd 0.72549 0.94902 0.411765
+Ka 0 0 0
+Ks 0.33 0.33 0.33
+Ke 0 0 0
+d 1
+Ns 20
+illum 2
+
+newmtl __Silver_
+Kd 0.752941 0.752941 0.752941
+Ka 0 0 0
+Ks 0.33 0.33 0.33
+Ke 0 0 0
+d 1
+Ns 20
+illum 2
+
