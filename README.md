@@ -5,6 +5,8 @@ This repository contains the code that accompanies our CVPR 2019 paper
 
 ![Teaser Image](https://avg.is.tuebingen.mpg.de/uploads/publication/image/22555/superquadrics_parsing.png)
 
+You can find detailed instructions for both training your own models and using
+pretrained models in the examples below.
 
 Dependencies & Installation
 ----------------------------
@@ -44,25 +46,30 @@ Evaluation
 ----------
 
 For evaluating a previously trained model, we provide the `forward_pass.py`
-script that allows you to predict and visualize the predicted shape of an object as 
-superquadric surfaces using mayavi.
+script. This script performs a forward pass and predicts the parameters of the
+superquadric surfaces used to represent the 3D object. With this script you can
+visualize the predicted superquadrics using `mayavi` as well as save them as a
+mesh file.
 
-You can run it by simply typing
+You can run it using
 ```
 $ ./forward_pass.py ../demo/03001627/ /tmp/ --model_tag "dac4af24e2facd7d3000ca4b04fcd6ac" --n_primitives 18 --weight_file ../config/chair_T26AK2FES_model_699 --train_with_bernoulli --use_deformations --use_sq --dataset_type shapenet_v2
 ```
 
 The script requires two mandatory arguments, the path to the directory that
-contains the dataset `~/data/03001627` and the path to a directory that will be
-used for saving the generated files `/tmp`. You should also provide (even if it
-is not mandatory) the path to the previously trained model via the
-`--weight_file` argument, as well as the tag of the model you want to
-reconstruct (`--model_tag`) and the type of the dataset you are using
-(`--dataset_type`). Note that you should provide the same arguments that you
-used when training the model, regarding the configuration of the geometric
-primitives (e.g number of primitives, whether or not to use superquadrics etc.).
+contains the dataset, in this case it is `../demo/03001627` and the path to a
+directory that will be used for saving the generated files, here `/tmp`. You
+should also provide (even if it is not mandatory) the path to the previously
+trained model via the `--weight_file` argument, as well as the tag of the model
+you want to reconstruct (`--model_tag`) and the type of the dataset you are
+using (`--dataset_type`). Note that you should provide the same arguments that
+you used when training the model, regarding the configuration of the geometric
+primitives (e.g number of primitives, whether or not to use superquadrics
+etc.). This script automatically visualizes the predicted superquadrics using
+`mayavi`. To save these predictions as a mesh file, simply add the
+`save_prediction_as_mesh` argument.
 
-If you ran the above command you should see something like:
+Running the above command, will result in something like the following:
 ```
 $ ./forward_pass.py ~/data/03001627/ /tmp/ --model_tag "dac4af24e2facd7d3000ca4b04fcd6ac" --n_primitives 18 --weight_file ../config/chair_T26AK2FES_model_699 --train_with_bernoulli --use_deformations --use_sq --dataset_type shapenet_v2
 No handlers could be found for logger "trimesh"

@@ -29,21 +29,7 @@ from learnable_primitives.primitives import\
     euler_angles_to_rotation_matrices, quaternions_to_rotation_matrices
 from learnable_primitives.voxelizers import VoxelizerFactory
 
-# Import mayavi
-import sip
-sip.setapi('QDate', 2)
-sip.setapi('QDateTime', 2)
-sip.setapi('QString', 2)
-sip.setapi('QTextStream', 2)
-sip.setapi('QTime', 2)
-sip.setapi('QUrl', 2)
-sip.setapi('QVariant', 2)
 from mayavi import mlab
-
-import matplotlib
-matplotlib.use("agg")
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
 
 def get_shape_configuration(use_cuboids):
@@ -104,25 +90,9 @@ def main(argv):
         help="Use GPU"
     )
     parser.add_argument(
-        "--title",
-        default="Fooo",
-        help="Title on the plot"
-    )
-    parser.add_argument(
-        "--save_image_to",
-        default="/tmp/image_0.png",
-        help="Path to image"
-    )
-    parser.add_argument(
         "--with_animation",
         action="store_true",
         help="Add animation"
-    )
-    parser.add_argument(
-        "--model_id",
-        type=int,
-        default=0,
-        help="Epoch at which this model was captured"
     )
 
     add_dataset_parameters(parser)
