@@ -8,7 +8,6 @@ import json
 import random
 import os
 import string
-import subprocess
 import sys
 
 import numpy as np
@@ -97,20 +96,6 @@ def save_experiment_params(args, experiment_tag, directory):
     t = vars(args)
     params = {k: str(v) for k, v in t.iteritems()}
 
-    # git_dir = '/home/dpaschalidou/Workspace/learnable_primitives/code'
-    # try:
-    #     git_head_hash = subprocess.check_output(
-    #         ['git', 'rev-parse', 'HEAD']
-    #     ).strip()
-    # except subprocess.CalledProcessError, e:
-    #     print "Ping stdout output:\n", e.output
-    #     # Keep the current working directory to move back in a bit
-    #     cwd = os.getcwd()
-    #     os.chdir(git_dir)
-    #     git_head_hash = subprocess.check_output(
-    #         ['git', 'rev-parse', 'HEAD']
-    #     ).strip()
-    #     os.chdir(cwd)
     git_head_hash = "foo"
     params["git-commit"] = git_head_hash
     params["experiment_tag"] = experiment_tag
@@ -187,7 +172,7 @@ def main(argv):
     parser.add_argument(
         "--cache_size",
         type=int,
-        default=1000,
+        default=2000,
         help="The batch provider cache size"
     )
 

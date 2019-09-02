@@ -104,7 +104,7 @@ def add_dataset_parameters(parser):
         "--n_points_from_mesh",
         type=int,
         default=1000,
-        help="The maximum number of points to sample from mesh (default=1e3)"
+        help="The maximum number of points sampled from mesh (default=1000)"
     )
     parser.add_argument(
         "--model_tags",

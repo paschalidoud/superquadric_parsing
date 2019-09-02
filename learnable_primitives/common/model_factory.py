@@ -162,7 +162,6 @@ class ShapeNetV1(ModelsCollection):
             self._tags[i],
             os.path.join(self._paths[i], "model_watertight.off"),
             None,
-            os.path.join(self._paths[i], "points.npz"),
             images_dir=os.path.join(self._paths[i], "img_choy2016")
         )
 

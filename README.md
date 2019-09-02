@@ -129,7 +129,7 @@ To train a new network from scratch we provide the `train_network.py` script.
 
 You can simply execute it by typing
 ```
-$ ./train_network.py ~/data/03001627/ /tmp/ --use_sq --lr 1e-4 --n_primitives 20 --train_with_bernoulli --dataset_type shapenet_v2
+$ ./train_network.py ~/data/03001627/ /tmp/ --use_sq --lr 1e-4 --n_primitives 20 --train_with_bernoulli --dataset_type shapenet_v2 --use_chamfer
 Running code on  cpu
 Save experiment statistics in 26EKQBNTG
 Found 6778 'ShapeNetV2' models
