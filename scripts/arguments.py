@@ -124,30 +124,6 @@ def add_nn_parameters(parser):
         help="Choose the architecture to train"
     )
     parser.add_argument(
-        "--n_encoder_layers",
-        type=int,
-        default=5,
-        help="Number of repeated stacked layers for encoder (default=5)"
-    )
-    parser.add_argument(
-        "--kernel_size",
-        type=int,
-        default=3,
-        help="Kernel size (default=3)"
-    )
-    parser.add_argument(
-        "--padding",
-        type=int,
-        default=1,
-        help="Padding (default=1)"
-    )
-    parser.add_argument(
-        "--stride",
-        type=int,
-        default=1,
-        help="Stride (default=1)"
-    )
-    parser.add_argument(
         "--train_with_bernoulli",
         action="store_true",
         help="Learn the Bernoulli priors during training"
@@ -332,14 +308,6 @@ def add_gaussian_noise_layer_parameters(parser):
 
 
 def add_loss_parameters(parser):
-    parser.add_argument(
-        "--loss_type",
-        default="euclidean_dual_loss",
-        choices=[
-            "euclidean_dual_loss"
-        ],
-        help="The type of the loss to be used"
-    )
     parser.add_argument(
         "--prim_to_pcl_loss_weight",
         default=1.0,

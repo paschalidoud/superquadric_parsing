@@ -7,31 +7,19 @@ from torchvision import models
 
 
 class NetworkParameters(object):
-    def __init__(self, architecture, n_layers=5, n_filters=4, kernel_size=3,
-                 stride=1, padding=1, max_pool_kernel_size=2,
-                 max_pool_stride=2, relu_slope=0.2, n_primitives=32,
+    def __init__(self, architecture, n_primitives=32,
                  mu=0.0, sigma=0.001, add_gaussian_noise=False,
                  use_sq=False, make_dense=False,
                  use_deformations=False,
                  train_with_bernoulli=False):
         self.architecture = architecture
-        self.n_encoder_layers = n_layers
-        self.n_filters = n_filters
-        self.kernel_size = kernel_size
-        self.stride = stride
-        self.padding = padding
-        self.max_pool_kernel_size = max_pool_kernel_size
-        self.max_pool_stride = max_pool_stride
-        self.relu_slope = relu_slope
         self.n_primitives = n_primitives
         self.train_with_bernoulli = train_with_bernoulli
         self.add_gaussian_noise = add_gaussian_noise
-        self.mu = mu
-        self.sigma = sigma
         self.gaussian_noise_layer = get_gaussian_noise_layer(
             self.add_gaussian_noise,
-            self.mu,
-            self.sigma
+            mu,
+            sigma
         )
         self.use_sq = use_sq
         self.use_deformations = use_deformations
@@ -43,40 +31,18 @@ class NetworkParameters(object):
         args = vars(argument_parser)
 
         architecture = args["architecture"]
-
-        n_encoder_layers = args.get("n_layers", 5)
-        n_filters = args.get("n_filters", 4)
-        kernel_size = args.get("kernel_size", 3)
-        padding = args.get("padding", 1)
-        stride = args.get("stride", 1)
-
-        max_pool_kernel_size = args.get("max_pool_kernel_size", 2)
-        max_pool_stride = args.get("max_pool_stride", 2)
-        relu_slope = args.get("relu_slope", 0.2)
-
         n_primitives = args.get("n_primitives", 32)
+
+        add_gaussian_noise = args.get("add_gaussian_noise", False)
 
         # By default train without learning Bernoulli priors
         train_with_bernoulli = args.get("train_with_bernoulli", False)
-
-        mu = args.get("mu", 0.0)
-        sigma = args.get("sigma", 0.001)
-        add_gaussian_noise = args.get("add_gaussian_noise", False)
-
         use_sq = args.get("use_sq", False)
         use_deformations = args.get("use_deformations", False)
         make_dense = args.get("make_dense", False)
 
         return cls(
             architecture,
-            n_layers=n_encoder_layers,
-            n_filters=n_filters,
-            kernel_size=kernel_size,
-            stride=stride,
-            padding=padding,
-            max_pool_kernel_size=max_pool_kernel_size,
-            max_pool_stride=max_pool_stride,
-            relu_slope=relu_slope,
             n_primitives=n_primitives,
             mu=mu,
             sigma=sigma,
@@ -123,35 +89,21 @@ class NetworkParameters(object):
 class TulsianiNetwork(nn.Module):
     def __init__(self, network_params):
         super(TulsianiNetwork, self).__init__()
-
         self._network_params = network_params
-        # Denote some useful variables
-        n_filters = self._network_params.n_filters
-        kernel_size = self._network_params.kernel_size
-        padding = self._network_params.padding
-        stride = self._network_params.stride
-        mxp_kernel_size = self._network_params.max_pool_kernel_size
-        mxp_stride = self._network_params.max_pool_stride
-        relu_slope = self._network_params.relu_slope
 
-        # Build the Network to extract features
+        # Initialize some useful variables
+        n_filters = 4
         input_channels = 1
 
         encoder_layers = []
         # Create an encoder using a stack of convolutions
-        for i in range(self._network_params.n_encoder_layers):
-            encoder_layers.append(nn.Conv3d(
-                input_channels,
-                n_filters,
-                kernel_size=kernel_size,
-                padding=padding,
-                stride=stride
-            ))
-            encoder_layers.append(nn.BatchNorm3d(n_filters))
-            encoder_layers.append(nn.LeakyReLU(relu_slope, True))
+        for i in range(5):
             encoder_layers.append(
-                nn.MaxPool3d(kernel_size=mxp_kernel_size, stride=mxp_stride)
+                nn.Conv3d(input_channels, n_filters, kernel_size=3, padding=1)
             )
+            encoder_layers.append(nn.BatchNorm3d(n_filters))
+            encoder_layers.append(nn.LeakyReLU(0.2, True))
+            encoder_layers.append(nn.MaxPool3d(kernel_size=2, stride=2))
 
             input_channels = n_filters
             # Double the number of filters after every layer
@@ -169,7 +121,7 @@ class TulsianiNetwork(nn.Module):
 
         self._features_extractor = nn.Sequential(*encoder_layers)
         self._primitive_layer = self._network_params.primitive_layer(
-            network_params.n_primitives,
+            self._network_params.n_primitives,
             n_filters
         )
 

@@ -86,12 +86,6 @@ def get_regularizer_terms(args, current_epoch):
     return regularizer_terms
 
 
-def loss_factory(loss_type):
-    return {
-        "euclidean_dual_loss": euclidean_dual_loss
-    }[loss_type]
-
-
 def save_experiment_params(args, experiment_tag, directory):
     t = vars(args)
     params = {k: str(v) for k, v in t.iteritems()}
@@ -275,7 +269,7 @@ def main(argv):
     )
 
     # Create a dataset instance to generate the samples for training
-    training_dataset = get_dataset_type(args.loss_type)(
+    training_dataset = get_dataset_type("euclidean_dual_loss")(
         (DatasetBuilder()
             .with_dataset(args.dataset_type)
             .lru_cache(2000)
@@ -313,7 +307,7 @@ def main(argv):
     losses = []
     for i in range(args.epochs):
         bar = get_logger(
-            args.loss_type,
+            "euclidean_dual_loss",
             i+1,
             args.epochs,
             args.steps_per_epoch
@@ -328,7 +322,7 @@ def main(argv):
                 lr_schedule(
                     optimizer, i, args.lr, args.lr_factor, args.lr_epochs
                 ),
-                loss_factory(args.loss_type),
+                euclidean_dual_loss,
                 X,
                 y_target,
                 get_regularizer_terms(args, i),
