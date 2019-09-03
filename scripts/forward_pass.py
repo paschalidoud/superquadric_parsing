@@ -12,8 +12,7 @@ from torch.utils.data import DataLoader
 
 from arguments import add_voxelizer_parameters, add_nn_parameters, \
      add_dataset_parameters, add_gaussian_noise_layer_parameters, \
-     voxelizer_shape, add_tsdf_fusion_parameters, \
-     add_loss_options_parameters, add_loss_parameters
+     voxelizer_shape, add_loss_options_parameters, add_loss_parameters
 from utils import get_colors, store_primitive_parameters
 from visualization_utils import points_on_sq_surface, points_on_cuboid, \
     save_prediction_as_ply
@@ -98,7 +97,6 @@ def main(argv):
     add_dataset_parameters(parser)
     add_nn_parameters(parser)
     add_voxelizer_parameters(parser)
-    add_tsdf_fusion_parameters(parser)
     add_gaussian_noise_layer_parameters(parser)
     add_loss_parameters(parser)
     add_loss_options_parameters(parser)

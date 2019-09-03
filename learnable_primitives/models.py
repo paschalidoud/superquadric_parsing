@@ -34,6 +34,8 @@ class NetworkParameters(object):
         n_primitives = args.get("n_primitives", 32)
 
         add_gaussian_noise = args.get("add_gaussian_noise", False)
+        mu = args.get("mu", 0.0)
+        sigma = args.get("sigma", 0.001)
 
         # By default train without learning Bernoulli priors
         train_with_bernoulli = args.get("train_with_bernoulli", False)

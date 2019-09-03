@@ -21,7 +21,6 @@ Our library has the following dependencies:
 - [progress](https://pypi.org/project/progress/)
 - [pyquaternion](http://kieranwynn.github.io/pyquaternion/)
 - [trimesh](https://github.com/mikedh/trimesh)
-- Rtree
 - [backports.functools_lru_cache](https://pypi.org/project/backports.functools_lru_cache/)
 - [Cython](https://cython.readthedocs.io/en/latest/src/quickstart/install.html)
 - [sympy](https://pypi.org/project/sympy/)

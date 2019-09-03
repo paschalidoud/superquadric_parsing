@@ -17,8 +17,7 @@ from arguments import add_voxelizer_parameters, add_nn_parameters,\
     add_dataset_parameters, add_training_parameters,\
     add_regularizer_parameters, add_sq_mesh_sampler_parameters,\
     add_gaussian_noise_layer_parameters, voxelizer_shape,\
-    add_tsdf_fusion_parameters, add_loss_options_parameters, \
-    add_loss_parameters, get_loss_options
+    add_loss_options_parameters, add_loss_parameters, get_loss_options
 from output_logger import get_logger
 from utils import parse_train_test_splits
 
@@ -184,7 +183,6 @@ def main(argv):
     add_sq_mesh_sampler_parameters(parser)
     add_regularizer_parameters(parser)
     add_gaussian_noise_layer_parameters(parser)
-    add_tsdf_fusion_parameters(parser)
     # Parameters related to the loss function and the loss weights
     add_loss_parameters(parser)
     # Parameters related to loss options

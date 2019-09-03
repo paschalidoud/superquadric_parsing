@@ -135,55 +135,6 @@ def add_nn_parameters(parser):
     )
 
 
-def add_tsdf_fusion_parameters(parser):
-    """Add arguments that convert a mesh to a tsdf grid
-    """
-    parser.add_argument(
-        "--n_views",
-        type=int,
-        default=20,
-        help="Number of depth maps per model (default=20)"
-    )
-    parser.add_argument(
-        "--image_size",
-        type=lambda x: tuple(map(int, x.split(","))),
-        default="640,640",
-        help="The size of the rendered depth map (default=640,640)"
-    )
-    parser.add_argument(
-        "--focal_length",
-        type=lambda x: tuple(map(int, x.split(","))),
-        default="640,640",
-        help="The focal length along the x, y axis (default=640,640)"
-    )
-    parser.add_argument(
-        "--principal_point",
-        type=lambda x: tuple(map(int, x.split(","))),
-        default="320,320",
-        help=("The principal point location along the x, y axis"
-              " (default=320,320)")
-    )
-    parser.add_argument(
-        "--resolution",
-        type=int,
-        default=32,
-        help="Voxel resolution (default=32)"
-    )
-    parser.add_argument(
-        "--depth_offset_factor",
-        type=float,
-        default=1.0,
-        help="Depthmaps are offsetted using depth_offset_factor*voxel_size"
-    )
-    parser.add_argument(
-        "--truncation_factor",
-        type=float,
-        default=1.25,
-        help=("Truncation for the TSDF is derived as "
-              "truncation_factor*voxel_size")
-    )
-
-
 def add_regularizer_parameters(parser):
     parser.add_argument(
         "--regularizer_type",

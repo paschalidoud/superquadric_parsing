@@ -12,7 +12,7 @@ from pyquaternion import Quaternion
 
 from arguments import add_voxelizer_parameters, add_nn_parameters,\
      add_dataset_parameters, add_gaussian_noise_layer_parameters,\
-     voxelizer_shape, add_tsdf_fusion_parameters, add_loss_options_parameters, \
+     voxelizer_shape, add_loss_options_parameters, \
      add_loss_parameters, get_loss_options
 
 from learnable_primitives.common.dataset import get_dataset_type,\
@@ -69,7 +69,6 @@ def main(argv):
     add_dataset_parameters(parser)
     add_nn_parameters(parser)
     add_voxelizer_parameters(parser)
-    add_tsdf_fusion_parameters(parser)
     add_gaussian_noise_layer_parameters(parser)
     add_loss_parameters(parser)
     add_loss_options_parameters(parser)
