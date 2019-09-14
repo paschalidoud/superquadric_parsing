@@ -115,11 +115,6 @@ def main(argv):
         device = torch.device("cpu")
     print "Running code on ", device
 
-    losses = {
-        "euclidean_dual_loss": euclidean_dual_loss
-    }
-    loss_factory = losses[args.loss_type]
-
     # Create a factory that returns the appropriate voxelizer based on the
     # input argument
     voxelizer_factory = VoxelizerFactory(
@@ -129,7 +124,7 @@ def main(argv):
     )
 
     # Create a dataset instance to generate the samples for training
-    dataset = get_dataset_type(args.loss_type)(
+    dataset = get_dataset_type("euclidean_dual_loss")(
         (DatasetBuilder()
             .with_dataset(args.dataset_type)
             .filter_tags(args.model_tags)

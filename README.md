@@ -34,6 +34,12 @@ They should be automatically installed by running
 pip install --user -e .
 ```
 
+In case you this doesn't work automatically, also try
+```
+pip install -r requirements.txt
+pip install --user -e .
+```
+
 Please note that you might need to install `python-qt4` in order to be able to
 use mayavi. You can do that by simply typing
 ```
