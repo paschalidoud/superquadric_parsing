@@ -34,7 +34,7 @@ They should be automatically installed by running
 pip install --user -e .
 ```
 
-In case you this doesn't work automatically, also try
+In case you this doesn't work automatically try this instead,
 ```
 pip install -r requirements.txt
 pip install --user -e .
@@ -156,7 +156,9 @@ Visualizing Superquadrics
 
 We also provide the `visualize_sq.py` script which allows you to quickly
 visualize superquadrics given a set of parameters as a set of points sampled on
-the surface of the superquadric surface.
+the surface of the superquadric surface. Please note that you need to install
+python-tk to be able to use this script. You can do this my simply writing
+`sudo apt install python-tk`.
 
 You can simply execute it by providing your preferred shape and size parametrization as follows:
 ```
