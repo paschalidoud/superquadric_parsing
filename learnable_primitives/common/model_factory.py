@@ -131,7 +131,7 @@ class ShapeNetQuad(ModelsCollection):
         self._tags = sorted(os.listdir(base_dir))
         self._paths = [os.path.join(base_dir, x) for x in self._tags]
 
-        print "Found {} 'ShapeNetQuad' models".format(len(self))
+        print("Found {} 'ShapeNetQuad' models".format(len(self)))
 
     def __len__(self):
         return len(self._paths)
@@ -152,7 +152,7 @@ class ShapeNetV1(ModelsCollection):
         )
         self._paths = [os.path.join(base_dir, x) for x in self._tags]
 
-        print "Found {} 'ShapeNetV1' models".format(len(self))
+        print("Found {} 'ShapeNetV1' models".format(len(self)))
 
     def __len__(self):
         return len(self._paths)
@@ -174,7 +174,7 @@ class ShapeNetV2(ModelsCollection):
         )
         self._paths = [os.path.join(base_dir, x) for x in self._tags]
 
-        print "Found {} 'ShapeNetV2' models".format(len(self))
+        print("Found {} 'ShapeNetV2' models".format(len(self)))
 
     def __len__(self):
         return len(self._paths)
@@ -192,7 +192,7 @@ class SurrealHumanBodies(ModelsCollection):
         self._base_dir = base_dir
         self._tags = sorted({x[:6] for x in os.listdir(base_dir)})
 
-        print "Found {} 'Surreal' models".format(len(self))
+        print("Found {} 'Surreal' models".format(len(self)))
 
     def __len__(self):
         return len(self._tags)
@@ -219,7 +219,7 @@ class DynamicFaust(ModelsCollection):
             for l in os.listdir(os.path.join(self._base_dir, d, "mesh_seq"))
         ])
 
-        print "Found {} 'Surreal' models".format(len(self))
+        print("Found {} 'Surreal' models".format(len(self)))
 
     def __len__(self):
         return len(self._tags)

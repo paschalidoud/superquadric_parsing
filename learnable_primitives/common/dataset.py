@@ -25,7 +25,7 @@ class BaseDataset(Dataset):
             transform: Callable that applies a transform to a sample
         """
         self._dataset_object = dataset_object
-        print "%d models in total ..." % (len(self._dataset_object))
+        print("{}.models in total ...".format(len(self._dataset_object)))
 
         # Number of samples to use for supervision
         self._n_points_from_mesh = n_points_from_mesh
@@ -82,7 +82,7 @@ class MeshParserDataset(BaseDataset):
     """
     def __init__(self, dataset_object):
         self._dataset_object = dataset_object
-        print "%d models in total ..." % (len(self._dataset_object))
+        print("{} models in total ...".format(len(self._dataset_object)))
 
     def __getitem__(self, idx):
         m = self._dataset_object[idx]

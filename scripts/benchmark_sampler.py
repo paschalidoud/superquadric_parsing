@@ -17,4 +17,4 @@ if __name__ == "__main__":
         etas, omegas = fast_sample_on_batch(shapes, epsilons, 200)
     end = time.time()
 
-    print "Time per sample", (end-start)/n_runs
+    print("Time per sample", (end-start)/n_runs)

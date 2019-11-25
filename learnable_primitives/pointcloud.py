@@ -225,15 +225,15 @@ class PointcloudFromOBJ(Pointcloud):
             with open(self.obj_file, "r") as f:
                 lines = f.readlines()
                 # Remove lines containing change of line
-                lines = filter(None, [x.strip("\r\n") for x in lines])
+                lines = [_f for _f in [x.strip("\r\n") for x in lines] if _f]
 
                 # Keep only the lines that start with the letter v, that
                 # corresponds to vertices
-                vertices = filter(lambda k: k.startswith("v "), lines)
+                vertices = [k for k in lines if k.startswith("v ")]
                 # Remove the unwanted "v" in front of every row and transform
                 # it to float
                 self._points = np.array([
-                        map(float, k.strip().split(" ")[1:]) for k in vertices
+                        list(map(float, k.strip().split(" ")[1:])) for k in vertices
                 ]).T
                 self._normalize()
 
@@ -255,11 +255,11 @@ class PointcloudFromOFF(Pointcloud):
                 lines = fp.readlines()[1:]
                 # Parse the number of vertices and the number of faces from the
                 # first line
-                n_vertices, n_faces, _ = map(int, lines[0].strip().split())
+                n_vertices, n_faces, _ = list(map(int, lines[0].strip().split()))
                 vertices = lines[1:n_vertices+1]
                 assert len(vertices) == n_vertices
                 self._points = np.array([
-                    map(float, vi)
+                    list(map(float, vi))
                     for vi in
                     [v.strip().split() for v in vertices]
                 ]).T

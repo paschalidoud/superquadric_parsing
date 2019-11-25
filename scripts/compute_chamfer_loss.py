@@ -85,7 +85,7 @@ def main(argv):
         device = torch.device("cuda:0")
     else:
         device = torch.device("cpu")
-    print "Running code on ", device
+    print("Running code on ", device)
 
     # Create a factory that returns the appropriate voxelizer based on the
     # input argument
@@ -180,14 +180,14 @@ def main(argv):
         np.mean(prim_to_pcl_losses), np.std(prim_to_pcl_losses)]
     )
 
-    print "loss: %.7f +/- %.7f - pcl_to_prim_loss %.7f +/- %.7f - prim_to_pcl_loss %.7f +/- %.7f" %(
+    print("loss: %.7f +/- %.7f - pcl_to_prim_loss %.7f +/- %.7f - prim_to_pcl_loss %.7f +/- %.7f" %(
         np.mean(losses),
         np.std(losses),
         np.mean(pcl_to_prim_losses),
         np.std(pcl_to_prim_losses),
         np.mean(prim_to_pcl_losses),
         np.std(prim_to_pcl_losses)
-    )
+    ))
 
 if __name__ == "__main__":
     main(sys.argv[1:])

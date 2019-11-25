@@ -82,8 +82,8 @@ def points_on_cuboid(a1, a2, a3, e1, e2, R, t, n_samples=100):
 
     points = np.stack([X, Y, Z]).reshape(3, -1)
     points_transformed = R.T.dot(points) + t
-    print "R:", R
-    print "t:", t
+    print("R:", R)
+    print("t:", t)
 
     assert points.shape == (3, 18)
 

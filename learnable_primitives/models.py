@@ -112,7 +112,7 @@ class TulsianiNetwork(nn.Module):
             n_filters *= 2
 
         # Add the two fully connected layers
-        input_channels = n_filters / 2
+        input_channels = n_filters // 2
         n_filters = 100
         for i in range(2):
             encoder_layers.append(nn.Conv3d(input_channels, n_filters, 1))
@@ -441,7 +441,7 @@ class GeometricPrimitive(nn.Module):
             self.add_module("layer%d" % (i,), m)
 
     def forward(self, X):
-        if "probs" not in self._primitive_params.keys():
+        if "probs" not in list(self._primitive_params.keys()):
             probs = X.new_ones((X.shape[0], self._n_primitives))
         else:
             probs = self._primitive_params["probs"].forward(X)
@@ -451,12 +451,12 @@ class GeometricPrimitive(nn.Module):
         sizes = self._primitive_params["sizes"].forward(X)
 
         # By default the geometric primitive is a cuboid
-        if "shapes" not in self._primitive_params.keys():
+        if "shapes" not in list(self._primitive_params.keys()):
             shapes = X.new_ones((X.shape[0], self._n_primitives*2)) * 0.25
         else:
             shapes = self._primitive_params["shapes"].forward(X)
 
-        if "deformations" not in self._primitive_params.keys():
+        if "deformations" not in list(self._primitive_params.keys()):
             deformations = X.new_zeros((X.shape[0], self._n_primitives*2))
         else:
             deformations = self._primitive_params["deformations"].forward(X)

@@ -4,7 +4,7 @@ import pickle
 import numpy as np
 from sympy import solve, symbols, diff, cos, sin, sign, Function, S
 
-from fast_sampler import step_eta as fast_step_eta,\
+from .fast_sampler import step_eta as fast_step_eta,\
     step_omega as fast_step_omega, collect_etas as fast_collect_etas,\
     collect_omegas as fast_collect_omegas, fast_sample, fast_sample_on_batch
 
@@ -516,7 +516,7 @@ def sq_surface(a1, a2, a3, e1, e2, eta, omega):
 
 
 def visualize_points_on_sq_mesh(e, **kwargs):
-    print kwargs
+    print(kwargs)
     e1 = kwargs.get("eps1", 0.25)
     e2 = kwargs.get("eps2", 0.25)
     a1 = kwargs.get("a1", 0.25)

@@ -113,7 +113,7 @@ def main(argv):
         device = torch.device("cuda:0")
     else:
         device = torch.device("cpu")
-    print "Running code on ", device
+    print("Running code on ", device)
 
     # Create a factory that returns the appropriate voxelizer based on the
     # input argument
@@ -252,20 +252,20 @@ def main(argv):
                     )
                 )
         for i in range(args.n_primitives):
-            print i, probs[0, i]
+            print(i, probs[0, i])
 
-        print "Using %d primitives out of %d" % (on_prims, args.n_primitives)
+        print("Using %d primitives out of %d" % (on_prims, args.n_primitives))
         mlab.show()
 
         if args.save_prediction_as_mesh:
-            print "Saving prediction as mesh...."
+            print("Saving prediction as mesh....")
             save_prediction_as_ply(
                 primitive_files,
                 os.path.join(args.output_directory, "primitives.ply")
             )
-            print "Saved prediction as ply file in {}".format(
+            print("Saved prediction as ply file in {}".format(
                 os.path.join(args.output_directory, "primitives.ply")
-            )
+            ))
 
 
 if __name__ == "__main__":

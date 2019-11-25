@@ -61,7 +61,7 @@ def add_training_parameters(parser):
     )
     parser.add_argument(
         "--lr_epochs",
-        type=lambda x: map(int, x.split(",")),
+        type=lambda x: list(map(int, x.split(","))),
         default="500,1000,1500",
         help="Training epochs with diminishing learning rate"
     )

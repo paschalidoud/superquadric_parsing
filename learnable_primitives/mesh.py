@@ -213,36 +213,33 @@ class MeshFromOBJ(Mesh):
         with open(obj_file, "r") as f:
             lines = f.readlines()
             # Remove lines containing change of line
-            lines = filter(None, [x.strip("\r\n") for x in lines])
+            lines = [_f for _f in [x.strip("\r\n") for x in lines] if _f]
 
             # Keep only the lines that start with the letter v, that
             # correspond to vertices
-            vertices = filter(lambda k: k.startswith("v "), lines)
+            vertices = [k for k in lines if k.startswith("v ")]
             # Remove the unwanted "v" in front of every row and transform
             # it to float
             points = np.array([
-                    map(float, k.strip().split(" ")[1:]) for k in vertices
+                    list(map(float, k.strip().split(" ")[1:])) for k in vertices
             ])
 
             # Keep only the lines that start with the bigramm vn, that
             # correspond to normals
-            normals = filter(lambda k: k.startswith("vn"), lines)
+            normals = [k for k in lines if k.startswith("vn")]
             # Remove the unwanted "v" in front of every row and transform
             # it to float
             normals = np.array([
-                    map(float, k.strip().split(" ")[1:]) for k in normals
+                    list(map(float, k.strip().split(" ")[1:])) for k in normals
             ])
 
             # Keep only the lines that start with the letter f, that
             # correspond to faces
-            f = filter(lambda k: k.startswith("f"), lines)
+            f = [k for k in lines if k.startswith("f")]
             # Remove all empty strings from the list and split it
-            t = map(
-                lambda x: filter(None, x),
-                [k.strip().split(" ") for k in f]
-            )
+            t = [[_f for _f in x if _f] for x in [k.strip().split(" ") for k in f]]
             # Remove preficx "f"
-            f_clean = map(lambda k: filter(lambda x: "f" not in x, k), t)
+            f_clean = [[x for x in k if "f" not in x] for k in t]
 
             faces_idxs = []
             normals_idxs = []
@@ -252,8 +249,8 @@ class MeshFromOBJ(Mesh):
                 # corresponds to the normal index.
                 faces_idxs.append([re.split("/+", i)[0] for i in ff])
                 normals_idxs.append([re.split("/+", i)[-1] for i in ff])
-            faces_idxs = np.array([map(int, x) for x in faces_idxs])
-            normals_idxs = np.array([map(int, x) for x in normals_idxs])
+            faces_idxs = np.array([list(map(int, x)) for x in faces_idxs])
+            normals_idxs = np.array([list(map(int, x)) for x in normals_idxs])
             # Remove 1 to make it compatible with the zero notation
             faces_idxs = faces_idxs - 1
             normals_idxs = normals_idxs - 1
@@ -310,11 +307,11 @@ class MeshFromOFF(Mesh):
             lines = f.readlines()[1:]
             # Parse the number of vertices and the number of faces from the
             # first line
-            n_vertices, n_faces, _ = map(int, lines[0].strip().split())
+            n_vertices, n_faces, _ = list(map(int, lines[0].strip().split()))
             vertices = lines[1:n_vertices+1]
             assert len(vertices) == n_vertices
             points = np.array([
-                map(float, vi)
+                list(map(float, vi))
                 for vi in
                 [v.strip().split() for v in vertices]
             ])
@@ -322,7 +319,7 @@ class MeshFromOFF(Mesh):
             faces_idxs = lines[n_vertices+1:]
             assert len(faces_idxs) == n_faces
             faces_idxs = np.array([
-                map(int, vi)
+                list(map(int, vi))
                 for vi in
                 [v.strip().split()[1:] for v in faces_idxs]
             ])

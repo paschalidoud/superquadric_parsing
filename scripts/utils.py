@@ -2,6 +2,7 @@ import pandas as pd
 import pickle
 
 import matplotlib
+from functools import reduce
 matplotlib.use("agg")
 import matplotlib.pyplot as plt
 import seaborn as sns
