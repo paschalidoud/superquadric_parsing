@@ -375,8 +375,7 @@ def main(argv):
             )
             train_stats_f.write("\n")
             train_stats_f.flush()
-
-            next(bar)
+            bar.next()
         # Finish the progress bar and save the model after every epoch
         bar.finish()
         # Stop the batch provider
