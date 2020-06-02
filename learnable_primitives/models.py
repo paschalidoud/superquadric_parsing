@@ -526,7 +526,7 @@ def optimizer_factory(args, model):
     """Based on the input arguments create a suitable optimizer object
     """
     if args.probs_only:
-        params = model._primitive_layer._probability_layer.parameters()
+        params = model._primitive_layer._primitive_params["probs"].parameters()
     else:
         params = model.parameters()
 
