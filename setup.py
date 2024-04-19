@@ -55,7 +55,7 @@ def get_install_requirements():
         "numpy",
         "scikit-learn",
         "trimesh==2.38.42",
-        "torch==0.4.1",
+        "torch==1.11.0",
         "torchvision==0.1.8",
         "progress==1.4",
         "cython",
